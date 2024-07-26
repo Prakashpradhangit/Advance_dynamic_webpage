@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Input Form</title>
+    <script>
+        // Inline JavaScript for client-side form validation
+        function validateForm() {
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const age = document.getElementById('age').value;
+            const terms = document.getElementById('terms').checked;
+
+            if (name === '' || email === '' || age === '' || !terms) {
+                alert('Please fill in all fields and accept the terms.');
+                return false;
+            }
+
+            if (isNaN(age) || age < 18 || age > 100) {
+                alert('Please enter a valid age between 18 and 100.');
+                return false;
+            }
+
+            return true;
+        }
+    </script>
+</head>
+<body>
+    <h1>User Input Form</h1>
+    <form action="/submit" method="POST" onsubmit="return validateForm()">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required><br><br>
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required><br><br>
+
+        <label for="age">Age:</label>
+        <input type="text" id="age" name="age" required><br><br>
+
+        <label for="gender">Gender:</label>
+        <select id="gender" name="gender" required>
+            <option value="">Select</option>
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+            <option value="other">Other</option>
+        </select><br><br>
+
+        <label for="terms">
+            <input type="checkbox" id="terms" name="terms" required>
+            I accept the terms and conditions
+        </label><br><br>
+
+        <button type="submit">Submit</button>
+    </form>
+</body>
+</html>
