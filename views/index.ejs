@@ -4,6 +4,77 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Input Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            width: 100%;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            font-size: 16px;
+        }
+
+        input[type="checkbox"] {
+            margin-right: 10px;
+        }
+
+        button[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            width: 100%;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #45a049;
+        }
+
+        .error {
+            color: red;
+            font-size: 14px;
+            margin-bottom: 20px;
+            display: none;
+        }
+    </style>
     <script>
         // Inline JavaScript for client-side form validation
         function validateForm() {
@@ -11,14 +82,17 @@
             const email = document.getElementById('email').value;
             const age = document.getElementById('age').value;
             const terms = document.getElementById('terms').checked;
+            const errorMessage = document.getElementById('error-message');
 
             if (name === '' || email === '' || age === '' || !terms) {
-                alert('Please fill in all fields and accept the terms.');
+                errorMessage.textContent = 'Please fill in all fields and accept the terms.';
+                errorMessage.style.display = 'block';
                 return false;
             }
 
             if (isNaN(age) || age < 18 || age > 100) {
-                alert('Please enter a valid age between 18 and 100.');
+                errorMessage.textContent = 'Please enter a valid age between 18 and 100.';
+                errorMessage.style.display = 'block';
                 return false;
             }
 
@@ -27,16 +101,18 @@
     </script>
 </head>
 <body>
-    <h1>User Input Form</h1>
     <form action="/submit" method="POST" onsubmit="return validateForm()">
+        <h1>User Input Form</h1>
+        <div id="error-message" class="error"></div>
+
         <label for="name">Name:</label>
-        <input type="text" id="name" name="name" required><br><br>
+        <input type="text" id="name" name="name" required><br>
 
         <label for="email">Email:</label>
-        <input type="email" id="email" name="email" required><br><br>
+        <input type="email" id="email" name="email" required><br>
 
         <label for="age">Age:</label>
-        <input type="text" id="age" name="age" required><br><br>
+        <input type="text" id="age" name="age" required><br>
 
         <label for="gender">Gender:</label>
         <select id="gender" name="gender" required>
@@ -44,12 +120,12 @@
             <option value="male">Male</option>
             <option value="female">Female</option>
             <option value="other">Other</option>
-        </select><br><br>
+        </select><br>
 
         <label for="terms">
             <input type="checkbox" id="terms" name="terms" required>
             I accept the terms and conditions
-        </label><br><br>
+        </label><br>
 
         <button type="submit">Submit</button>
     </form>
